@@ -20,11 +20,15 @@ function(err, data) {
   } else {
     const citySelect = document.getElementById("city");
     const fuelSelect = document.getElementById("fuel");
+    const citySearchInput = document.getElementById("citySearch");
+    const citySearchBtn = document.getElementById("citySearchBtn");
+
 
     function searchFuel(city, f) {
         console.log(city, f);
         const cityFilter = data.collection.filter(e => e.attributes['Naselenyy_punkt'] === city);
         console.log(cityFilter);
+        document.getElementById('location').innerHTML = city;
 
         cityFilter.forEach(element => {
 
@@ -44,18 +48,55 @@ function(err, data) {
         }
     }
 
+    function capitalizeWords(str) {
+        // return string.replace(/(?:^|\s)\S/g, function(a) { return a.toUpperCase(); });
+        let result = (str.split('-').map(e=>e.charAt(0).toUpperCase() + e.slice(1))).join('-');
+        return result;
+    };
+
+    
+
     searchFuel(citySelect.value, fuelSelect.value);
 
     citySelect.addEventListener('change', (event) => {
+        document.getElementById('location').innerHTML = '';
         document.getElementById('list').innerHTML = '';
         document.getElementById('empty').innerHTML = '';
+        citySearchInput.value = '';
         searchFuel(citySelect.value, fuelSelect.value);
     });
 
     fuelSelect.addEventListener('change', (event) => {
         document.getElementById('list').innerHTML = '';
         document.getElementById('empty').innerHTML = '';
-        searchFuel(citySelect.value, fuelSelect.value);
+        if (citySearchInput.value) {
+            searchFuel(capitalizeWords(citySearchInput.value), fuelSelect.value);
+        } else {
+            searchFuel(citySelect.value, fuelSelect.value);   
+        }
+    });
+
+    citySearchBtn.addEventListener('click', (event) => {
+        document.getElementById('list').innerHTML = '';
+        document.getElementById('empty').innerHTML = '';
+        if (citySearchInput.value) {
+            searchFuel(capitalizeWords(citySearchInput.value), fuelSelect.value);
+        } else {
+            document.getElementById('empty').innerHTML = 'Введіть назву міста';
+        }
+    });
+
+    citySearchInput.addEventListener("keypress", function(event) {
+        if (event.key === "Enter") {
+            event.preventDefault();
+            document.getElementById('list').innerHTML = '';
+            document.getElementById('empty').innerHTML = '';
+            if (citySearchInput.value) {
+                searchFuel(capitalizeWords(citySearchInput.value), fuelSelect.value);
+            } else {
+                document.getElementById('empty').innerHTML = 'Введіть назву міста';
+            }
+        }
     });
     
   }

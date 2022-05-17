@@ -14,6 +14,7 @@
     <select name="type" id="fuel">
         <option value="<strong>PULLS 95<\/strong>: до 15 л з Fishka або згідно з персональним лімітом">95 Pulls</option>
         <option value="<strong>PULLS Diesel<\/strong>: до 15 л з Fishka або згідно з персональним лімітом">Diesel Pulls</option>
+        <option value="<strong>ГАЗ<\/strong>: без обмежень з Fishka">ГАЗ</option>
     </select>
     <select name="city" id="city">
         <option value="Львів">Львів</option>
@@ -22,9 +23,21 @@
         <option value="Тернопіль">Тернопіль</option>
         <option value="Луцьк">Луцьк</option>
         <option value="Рівне">Рівне</option>
+        <option value="Дніпро">Дніпро</option>
+        <option value="Чернівці">Чернівці</option>
+        <option value="Хмельницький">Хмельницький</option>
+        <option value="Вінниця">Вінниця</option>
+        <option value="Житомир">Житомир</option>
     </select>
-    <br><br><br>
-    <h4>Адреси АЗС</h4>
+    <div>
+        <p style="margin-bottom: 4px;">Пошук міста</p>
+        <form>
+            <input id="citySearch" type="text" placeholder="Назва міста">
+            <button type="button" id="citySearchBtn">Шукати</button>
+        </form>
+    </div>
+    <br><br>
+    <h4>Адреси АЗС <span id="location"></span></h4>
 
     <div id="list"></div>
     <div id="empty"></div>
