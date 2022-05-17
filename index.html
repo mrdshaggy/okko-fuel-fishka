@@ -29,15 +29,17 @@
         <option value="Вінниця">Вінниця</option>
         <option value="Житомир">Житомир</option>
     </select>
-    <div>
-        <p style="margin-bottom: 4px;">Пошук міста</p>
+    <p>або введіть назву якщо її немає у списку</p>
+
+    <span>
         <form>
             <input id="citySearch" type="text" placeholder="Назва міста">
-            <button type="button" id="citySearchBtn">Шукати</button>
+            <button type="button" id="citySearchBtn" disabled="disabled">Шукати</button>
+            <button type="button" id="citySearchClear" disabled="disabled">Очистити пошук</button>
         </form>
-    </div>
+    </span>
     <br><br>
-    <h4>Адреси АЗС <span id="location"></span></h4>
+    <h4>Адреси АЗС <span id="location"></span> <span id="selectedFuel"></span></h4>
 
     <div id="list"></div>
     <div id="empty"></div>

@@ -22,13 +22,16 @@ function(err, data) {
     const fuelSelect = document.getElementById("fuel");
     const citySearchInput = document.getElementById("citySearch");
     const citySearchBtn = document.getElementById("citySearchBtn");
+    const citySearchClear = document.getElementById("citySearchClear");
+
+    console.log(data);
 
 
     function searchFuel(city, f) {
         console.log(city, f);
         const cityFilter = data.collection.filter(e => e.attributes['Naselenyy_punkt'] === city);
         console.log(cityFilter);
-        document.getElementById('location').innerHTML = city;
+        document.getElementById('location').innerHTML = ' - ' + city + ' - ' + fuelSelect.options[fuelSelect.selectedIndex].text;
 
         cityFilter.forEach(element => {
 
@@ -72,7 +75,7 @@ function(err, data) {
         if (citySearchInput.value) {
             searchFuel(capitalizeWords(citySearchInput.value), fuelSelect.value);
         } else {
-            searchFuel(citySelect.value, fuelSelect.value);   
+            searchFuel(citySelect.value, fuelSelect.value);
         }
     });
 
@@ -82,8 +85,15 @@ function(err, data) {
         if (citySearchInput.value) {
             searchFuel(capitalizeWords(citySearchInput.value), fuelSelect.value);
         } else {
-            document.getElementById('empty').innerHTML = 'Введіть назву міста';
+            searchFuel(citySelect.value, fuelSelect.value);
         }
+    });
+
+    citySearchClear.addEventListener('click', (event) => {
+        citySearchInput.value = '';
+        citySelect.removeAttribute("disabled");
+        citySearchBtn.setAttribute("disabled", "disabled");
+        citySearchClear.setAttribute("disabled", "disabled");
     });
 
     citySearchInput.addEventListener("keypress", function(event) {
@@ -94,7 +104,21 @@ function(err, data) {
             if (citySearchInput.value) {
                 searchFuel(capitalizeWords(citySearchInput.value), fuelSelect.value);
             } else {
-                document.getElementById('empty').innerHTML = 'Введіть назву міста';
+                searchFuel(citySelect.value, fuelSelect.value);
+            }
+        }
+    });
+
+    citySearchInput.addEventListener("keyup", function(event) {
+        if (event.key) {
+            if (citySearchInput.value.length === 0) {
+                citySelect.removeAttribute("disabled");
+                citySearchBtn.setAttribute("disabled", "disabled");
+                citySearchClear.setAttribute("disabled", "disabled");
+            } else {
+                citySelect.setAttribute("disabled", "disabled");
+                citySearchBtn.removeAttribute("disabled");
+                citySearchClear.removeAttribute("disabled");
             }
         }
     });
