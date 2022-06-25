@@ -24,13 +24,10 @@ function(err, data) {
     const citySearchBtn = document.getElementById("citySearchBtn");
     const citySearchClear = document.getElementById("citySearchClear");
 
-    console.log(data);
-
-
     function searchFuel(city, f) {
-        console.log(city, f);
+        // console.log(city, f);
         const cityFilter = data.collection.filter(e => e.attributes['Naselenyy_punkt'] === city);
-        console.log(cityFilter);
+        // console.log(cityFilter);
         document.getElementById('location').innerHTML = ' - ' + city + ' - ' + fuelSelect.options[fuelSelect.selectedIndex].text;
 
         cityFilter.forEach(element => {
@@ -47,17 +44,14 @@ function(err, data) {
         });
     
         if (document.getElementById('list').innerHTML.length === 0) {
-            document.getElementById('empty').innerHTML = 'Для простих смертних нічого немає';
+            document.getElementById('empty').innerHTML = 'ЗА ГОТІВКУ І БАНКІВСЬКІ КАРТКИ НЕ ДОСТУПНО';
         }
     }
 
     function capitalizeWords(str) {
-        // return string.replace(/(?:^|\s)\S/g, function(a) { return a.toUpperCase(); });
         let result = (str.split('-').map(e=>e.charAt(0).toUpperCase() + e.slice(1))).join('-');
         return result;
     };
-
-    
 
     searchFuel(citySelect.value, fuelSelect.value);
 
